@@ -36,5 +36,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "axios": "^0.25.0",
+    "formik": "^2.2.9",
+    "prettier": "^2.5.1",
+    "prop-types": "^15.8.1",
+    "react-icons": "^4.3.1",
+    "react-router-dom": "^6.2.1",
+    "react-toastify": "^8.1.1",
+    "styled-components": "^5.3.3"
   }
 }
