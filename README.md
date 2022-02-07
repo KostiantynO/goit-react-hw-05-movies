@@ -7,23 +7,26 @@ npm start
 gca "initial"
 gph
 
-npm i -D prettier styled-components prop-types react-router-dom react-toastify react-icons axios formik
+npm i -D prettier eslint styled-components prop-types react-router-dom react-toastify react-icons axios formik
 ```
 
 2. Deploy:
 
-   - Изначально на GitHub Pages `package.json`
+- Изначально на GitHub Pages `package.json`
 
-     ```json
-     "homepage": "https://KostiantynO.github.io/goit-react-hw-05-movies/",
-     ```
+  ```json
+  "homepage": "https://KostiantynO.github.io/goit-react-hw-05-movies/",
+  "lint-staged": {
+    "*.{js,jsx}": "eslint --cache --fix",
+    "*.{js,jsx,css,scss,md}": "prettier --write"
+  }
+  ```
 
-   - TODO Kostiantyn: Надо поменять homepage перед Netlify. Deadline: 2022-02-08
-     23:00.
-
-     ```json
-     "homepage": "https://netlify.com/KostiantynO/goit-react-hw-05-movies/",
-     ```
+- TODO Kostiantyn: Надо поменять homepage перед Netlify. Deadline: 2022-02-08
+  23:00. Will change URL !!!
+  ```json
+  "homepage": "https://netlify.com/KostiantynO/goit-react-hw-05-movies/",
+  ```
 
 3. `index.js`
 
