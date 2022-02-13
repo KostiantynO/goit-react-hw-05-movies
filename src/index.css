@@ -1,10 +1,19 @@
-@import-normalize; /* bring in normalize.css styles */
+:root {
+  --time: 250ms;
+  --cubic: cubic-bezier(0.4, 0, 0.2, 1);
+  --color-accent: #2196f3;
+}
+
+@import-normalize;
 
 body {
   margin: 0;
+
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+
+  font-size: clamp(1rem, 3vw, 1.3rem);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -12,4 +21,33 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+ul,
+p,
+h1,
+h2,
+h3,
+li,
+a {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
 }

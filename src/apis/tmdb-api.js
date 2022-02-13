@@ -1,34 +1,30 @@
-/*
-https://api.themoviedb.org/3/configuration?api_key=0bd610b1a3557ac4e7f9b5501edcfef4
-*/
+import axios from 'axios';
+axios.defaults.baseURL = 'https://api.themoviedb.org/3';
+const MOVIE_API_KEY = '0bd610b1a3557ac4e7f9b5501edcfef4';
+const key = `api_key=${MOVIE_API_KEY}`;
+const censor = `&include_adult=false`;
 
-const getConfig = async () => {
-  blabla;
+const fetchOrError = async (url, query = '') => {
+  const response = await axios.get(url);
+
+  return !response?.data
+    ? Promise.reject(new Error(`No results for query: '${query}'`))
+    : response.data;
 };
 
-const fetchMovies = async (query, page) => {
-  const baseURL = 'https://api.themoviedb.org/3/';
-  const MOVIE_API_KEY = '0bd610b1a3557ac4e7f9b5501edcfef4';
+export const fetchTrendingMovies = async (page = 1) =>
+  await fetchOrError(`/trending/movie/day?${key}&page=${page}${censor}`);
 
-  const params = new URLSearchParams({
-    q: query,
-    api_key: MOVIE_API_KEY,
-  });
-
-  const url = `${baseURL}?${params}`;
-
-  const res = await fetch(url);
-
-  return !res.ok
-    ? Promise.reject(new Error(`No images for query ${query}`))
-    : res.json();
-};
-
-const imagesComplete = async () =>
-  await Promise.all(
-    Array.from(document.images)
-      .filter(img => !img.complete)
-      .map(img => new Promise(res => (img.onload = img.onerror = res))),
+export const fetchSearchMovies = async (query, page = 1) =>
+  await fetchOrError(
+    `/search/movie?query=${query}&${key}&page=${page}${censor}`
   );
 
-export const API = { fetchMovies, imagesComplete };
+export const fetchMovieDetails = async movieId =>
+  await fetchOrError(`/movie/${movieId}?${key}`);
+
+export const fetchMovieCredits = async movieId =>
+  await fetchOrError(`/movie/${movieId}/credits?${key}`);
+
+export const fetchMovieReviews = async (movieId, page = 1) =>
+  await fetchOrError(`/movie/${movieId}/reviews?${key}&page=${page}`);

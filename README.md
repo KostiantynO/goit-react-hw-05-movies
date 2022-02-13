@@ -2,12 +2,14 @@
 git clone "${reactTemplate}"
 grr
 gra "${myGit}goit-react-hw-05-movies.git"
-npm i
+npm i -D prettier eslint styled-components prop-types react-router-dom react-toastify react-icons axios formik
+
+npx mrm@2 lint-staged
+
 npm start
+
 gca "initial"
 gph
-
-npm i -D prettier eslint styled-components prop-types react-router-dom react-toastify react-icons axios formik
 ```
 
 2. Deploy:
