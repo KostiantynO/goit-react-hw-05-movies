@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { makeUrl, Status } from 'utils';
 import { Container, Section, ScoreIcon, ScrollButtons } from 'components';
 // prettier-ignore
-import { MovieDetailsPageStyled, ArrowLeft, MovieImage, PlaceholderSvg, TitleWrapper, GoBackLink, GoBack } from './MovieDetailsPage.styled';
+import { MovieDetailsPageStyled, ArrowLeft, MovieImage, PlaceholderSvg, TitleWrapper, GoBack } from './MovieDetailsPage.styled';
 
 const { IDLE, PENDING, RESOLVED, REJECTED } = Status;
 
