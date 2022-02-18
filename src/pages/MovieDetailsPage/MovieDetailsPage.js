@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 // prettier-ignore
-import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { fetchMovieDetails } from 'apis/tmdb-api';
 import { toast } from 'react-toastify';
 import { makeUrl, Status } from 'utils';
 import { Container, Section, ScoreIcon, ScrollButtons } from 'components';
 // prettier-ignore
-import { MovieDetailsPageStyled, ArrowLeft, MovieImage, PlaceholderSvg, TitleWrapper, GoBackLink } from './MovieDetailsPage.styled';
+import { MovieDetailsPageStyled, ArrowLeft, MovieImage, PlaceholderSvg, TitleWrapper, GoBackLink, GoBack } from './MovieDetailsPage.styled';
 
 const { IDLE, PENDING, RESOLVED, REJECTED } = Status;
 
@@ -59,17 +59,24 @@ export const MovieDetailsPage = () => {
   const genresNames =
     genres?.length > 0 ? genres.map(({ name }) => name).join(', ') : '';
   const releaseDate = `(${release_date?.slice(0, 4)})`;
-  const goBackURL = location?.state?.from ?? '/movies';
+
   const error = status === REJECTED;
+
+  const oldLocation = useRef(location);
+  const nav = useNavigate();
+
+  const goBack = () => {
+    nav(oldLocation?.current?.state?.from ?? '/');
+  };
 
   return (
     <MovieDetailsPageStyled>
       <Section bg={makeUrl(backdrop_path, 'bg', 'lg')}>
         <Container>
-          <GoBackLink to={goBackURL}>
+          <GoBack type="button" onClick={goBack}>
             <ArrowLeft />
             <span>Go back</span>
-          </GoBackLink>
+          </GoBack>
 
           {!error && (
             <>

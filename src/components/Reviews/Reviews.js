@@ -34,7 +34,7 @@ export const Reviews = () => {
   scrollBottom(status);
 
   return (
-    <Container>
+    <Container id="reviews">
       {hasMovieReviews ? (
         <ul>
           {movieReviews.results.map(({ id, author, content }) => (

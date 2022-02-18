@@ -1,29 +1,24 @@
-import { useState, useEffect } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import { fetchSearchMovies } from 'apis/tmdb-api';
+import { useState, useEffect, Suspense } from 'react';
+import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Container, Searchbar, MoviesList, Section } from 'components';
+import { fetchSearchMovies } from 'apis/tmdb-api';
 import { Status } from 'utils';
+import { Container, Searchbar, MoviesList, Section } from 'components';
 import { GoBackLink } from './MoviesPage.styled';
 const { IDLE, PENDING, RESOLVED, REJECTED } = Status;
 
 export const MoviesPage = () => {
   const [searchMovies, setSearchMovies] = useState(null);
-  const [query, setQuery] = useState('');
   const [status, setStatus] = useState(IDLE);
   const [error, setError] = useState(null);
   const [page] = useState(1);
 
   const location = useLocation();
-  const searchQuery = new URLSearchParams(location.search).get('query');
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('query');
 
   useEffect(() => {
-    if (query === '') {
-      setSearchMovies(null);
-      setStatus(IDLE);
-      setError(null);
-      return;
-    }
+    if (!query) return;
 
     const getMovies = async () => {
       setStatus(PENDING);
@@ -43,12 +38,12 @@ export const MoviesPage = () => {
     };
 
     getMovies();
-  }, [location, page, query, searchQuery, setStatus]);
+  }, [page, query]);
 
   useEffect(() => {
     return () => {
-      setSearchMovies(null);
-      console.log('MoviesPage UNmounted');
+      // setSearchMovies(null);
+      setError(null);
     };
   }, []);
 
@@ -58,7 +53,7 @@ export const MoviesPage = () => {
   return (
     <div>
       <Container>
-        <Searchbar onSubmit={setQuery} status={status} />
+        <Searchbar status={status} />
 
         <GoBackLink to={goBackURL}>&lArr; Go back</GoBackLink>
 
@@ -69,7 +64,9 @@ export const MoviesPage = () => {
         )}
       </Container>
 
-      <Outlet />
+      <Suspense fallback="">
+        <Outlet />
+      </Suspense>
     </div>
   );
 };

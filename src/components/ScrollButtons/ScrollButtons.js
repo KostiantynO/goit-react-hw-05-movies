@@ -1,9 +1,13 @@
 import { scrollBot, scrollTop } from 'utils';
-import { ArrowBottom, ArrowTop } from './ScrollButtons.styled';
+import {
+  ArrowBottom,
+  ArrowTop,
+  ScrollButtonsStyled,
+} from './ScrollButtons.styled';
 
 export const ScrollButtons = () => {
   return (
-    <div className="ScrollButtons">
+    <ScrollButtonsStyled>
       <button type="button" onClick={scrollTop}>
         <ArrowTop />
       </button>
@@ -11,6 +15,6 @@ export const ScrollButtons = () => {
       <button type="button" onClick={scrollBot}>
         <ArrowBottom />
       </button>
-    </div>
+    </ScrollButtonsStyled>
   );
 };

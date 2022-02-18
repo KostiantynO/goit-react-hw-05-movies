@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
@@ -14,32 +15,34 @@ import { Status } from 'utils';
 
 const { PENDING } = Status;
 
-export const Searchbar = ({ onSubmit, status }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+export const Searchbar = ({ status }) => {
+  const [query, setQuery] = useState('');
+  const [, setSearchParams] = useSearchParams();
 
   const inputQueryChange = e => {
-    setSearchQuery(e.target.value.toLowerCase());
+    setQuery(e.target.value.toLowerCase());
   };
 
-  const formSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    const formQuery = searchQuery.trim();
+    const newQuery = query.trim();
 
-    if (formQuery === '') {
+    if (newQuery === '') {
+      setSearchParams({});
       return toast.error('Please enter search query');
     }
 
-    onSubmit(formQuery);
-    setSearchQuery('');
+    setSearchParams({ query: newQuery });
+    setQuery('');
   };
 
   return (
     <SearchbarStyled>
-      <SearchFormStyled onSubmit={formSubmit}>
+      <SearchFormStyled onSubmit={handleSubmit}>
         <SearchFormLabelStyled>
           <SearchFormInputStyled
-            name="searchQuery"
-            value={searchQuery}
+            name="query"
+            value={query} // searchParams.get('query') || ''
             onChange={inputQueryChange}
             type="text"
             autoComplete="off"

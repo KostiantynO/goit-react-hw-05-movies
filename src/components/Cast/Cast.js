@@ -36,7 +36,7 @@ export const Cast = () => {
   scrollBottom(status);
 
   return (
-    <CastStyled>
+    <CastStyled id="cast">
       <Container>
         {hasMovieCast ? (
           <CastList>

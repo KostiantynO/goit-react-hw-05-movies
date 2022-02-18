@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { PlaceholderIcon } from 'images';
 import { GoChevronLeft } from 'react-icons/go';
 
 export const MovieDetailsPageStyled = styled.div`
+  position: relative;
+
   .FlexContainer {
     display: flex;
     margin-bottom: 20px;
@@ -68,7 +69,7 @@ export const ArrowLeft = styled(GoChevronLeft)`
   height: 20px;
 `;
 
-export const GoBackLink = styled(Link)`
+export const GoBack = styled.button`
   display: inline-flex;
   align-items: center;
   gap: 4px;

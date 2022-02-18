@@ -15,7 +15,7 @@ const Reviews = chunk('Reviews', true);
 export const App = () => {
   return (
     <AppStyled>
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback="">
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
@@ -28,8 +28,8 @@ export const App = () => {
 
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <ToastContainer autoClose={3000} />
       </Suspense>
+      <ToastContainer autoClose={3000} />
     </AppStyled>
   );
 };
